@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 const ReservaForm = ({ 
   pessoas, 
   nomes, 
-  criancas,
   criancas6a10,
   criancasAte5,
   telefone, 
@@ -11,7 +10,6 @@ const ReservaForm = ({
   precos,
   handlePessoasChange,
   handleNomeChange,
-  handleCriancaChange,
   handleCrianca6a10Change,
   handleCriancaAte5Change,
   handleTelefoneChange,
@@ -20,10 +18,8 @@ const ReservaForm = ({
 }) => {
   const [mostrarCupom, setMostrarCupom] = useState(false);
 
-  // Verificar se precos está definido e tem as propriedades necessárias
   const precosValidos = precos && typeof precos === 'object';
   const precoAdulto = precosValidos && precos.adulto ? precos.adulto.toFixed(2) : '0.00';
-  const precoCrianca = precosValidos && precos.crianca ? precos.crianca.toFixed(2) : '0.00';
   const precoCrianca6a10 = precosValidos && precos.crianca6a10 ? precos.crianca6a10.toFixed(2) : '0.00';
   const precoCriancaAte5 = precosValidos && precos.criancaAte5 ? precos.criancaAte5.toFixed(2) : '0.00';
 
@@ -56,14 +52,6 @@ const ReservaForm = ({
           />
           {index > 0 && (
             <div style={styles.checkboxContainer}>
-              <label style={styles.checkboxLabel}>
-                <input
-                  type="checkbox"
-                  checked={criancas[index]}
-                  onChange={(e) => handleCriancaChange(index, e.target.checked)}
-                />
-                Criança (11 a 12 anos) - R$ {precoCrianca}
-              </label>
               <label style={styles.checkboxLabel}>
                 <input
                   type="checkbox"

@@ -1,13 +1,13 @@
-{`import React, { useState } from 'react';
+import React, { useState } from 'react';
 import PrecosSection from './PrecosSection';
 import PixSection from './PixSection';
 import MensagemBoasVindasSection from './MensagemBoasVindasSection';
 import CuponsSection from './CuponsSection';
-import { InputField, SelectField } from './FormFields';
 
 const ConfiguracaoForm = ({
   precoAdulto,
-  precoCrianca,
+  precoCrianca6a10,
+  precoCriancaAte5,
   chavePix,
   tipoChavePix,
   cupons,
@@ -17,7 +17,8 @@ const ConfiguracaoForm = ({
   popupAtivo,
   fontsizepopup,
   setPrecoAdulto,
-  setPrecoCrianca,
+  setPrecoCrianca6a10,
+  setPrecoCriancaAte5,
   setChavePix,
   setTipoChavePix,
   setNovoCupom,
@@ -27,7 +28,7 @@ const ConfiguracaoForm = ({
   setFontSizePopup,
   salvarConfiguracoes
 }) => {
-  const [minimizado, setMinimizado] = useState(true);
+  const [minimizado, setMinimizado] = useState(false); // Expandido por padrão
 
   const toggleMinimizado = () => {
     setMinimizado(!minimizado);
@@ -35,11 +36,13 @@ const ConfiguracaoForm = ({
 
   const styles = {
     configuracaoContainer: {
-      marginBottom: '40px',
+      maxWidth: '600px',
+      margin: '0 auto',
       padding: '20px',
-      backgroundColor: '#F5F5DC',
+      backgroundColor: '#FFF8DC',
       border: '2px solid #8B4513',
-      borderRadius: '10px'
+      borderRadius: '10px',
+      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)'
     },
     headerContainer: {
       display: 'flex',
@@ -49,23 +52,33 @@ const ConfiguracaoForm = ({
     },
     subtitle: {
       color: '#8B4513',
-      margin: 0
+      margin: 0,
+      fontSize: '24px',
+      fontWeight: 'bold'
     },
     minimizeButton: {
-      padding: '5px 10px',
+      padding: '8px 16px',
       fontSize: '14px',
       backgroundColor: '#8B4513',
       color: 'white',
       border: 'none',
       borderRadius: '5px',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      '&:hover': {
+        backgroundColor: '#A0522D'
+      }
+    },
+    sectionsContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '20px'
     },
     saveButtonContainer: {
       marginTop: '30px',
       textAlign: 'center'
     },
     button: {
-      padding: '10px 20px',
+      padding: '12px 24px',
       fontSize: '16px',
       backgroundColor: '#8B4513',
       color: 'white',
@@ -87,38 +100,38 @@ const ConfiguracaoForm = ({
         </button>
       </div>
       <div style={{ display: minimizado ? 'none' : 'block' }}>
-        <PrecosSection
-          precoAdulto={precoAdulto}
-          precoCrianca={precoCrianca}
-          setPrecoAdulto={setPrecoAdulto}
-          setPrecoCrianca={setPrecoCrianca}
-          InputField={InputField}
-        />
-        <PixSection
-          chavePix={chavePix}
-          tipoChavePix={tipoChavePix}
-          setChavePix={setChavePix}
-          setTipoChavePix={setTipoChavePix}
-          SelectField={SelectField}
-          InputField={InputField}
-        />
-        <MensagemBoasVindasSection
-          tituloPopup={tituloPopup}
-          descricaoPopup={descricaoPopup}
-          popupAtivo={popupAtivo}
-          fontsizepopup={fontsizepopup}
-          setTituloPopup={setTituloPopup}
-          setDescricaoPopup={setDescricaoPopup}
-          setPopupAtivo={setPopupAtivo}
-          setFontSizePopup={setFontSizePopup}
-          InputField={InputField}
-        />
-        <CuponsSection
-          cupons={cupons}
-          novoCupom={novoCupom}
-          setCupons={setCupons}
-          setNovoCupom={setNovoCupom}
-        />
+        <div style={styles.sectionsContainer}>
+          <PrecosSection
+            precoAdulto={precoAdulto}
+            precoCrianca6a10={precoCrianca6a10}
+            precoCriancaAte5={precoCriancaAte5}
+            setPrecoAdulto={setPrecoAdulto}
+            setPrecoCrianca6a10={setPrecoCrianca6a10}
+            setPrecoCriancaAte5={setPrecoCriancaAte5}
+          />
+          <PixSection
+            chavePix={chavePix}
+            tipoChavePix={tipoChavePix}
+            setChavePix={setChavePix}
+            setTipoChavePix={setTipoChavePix}
+          />
+          <MensagemBoasVindasSection
+            tituloPopup={tituloPopup}
+            descricaoPopup={descricaoPopup}
+            popupAtivo={popupAtivo}
+            fontsizepopup={fontsizepopup}
+            setTituloPopup={setTituloPopup}
+            setDescricaoPopup={setDescricaoPopup}
+            setPopupAtivo={setPopupAtivo}
+            setFontSizePopup={setFontSizePopup}
+          />
+          <CuponsSection
+            cupons={cupons}
+            novoCupom={novoCupom}
+            setCupons={setCupons}
+            setNovoCupom={setNovoCupom}
+          />
+        </div>
         <div style={styles.saveButtonContainer}>
           <button style={styles.button} onClick={salvarConfiguracoes}>
             Salvar Configurações
@@ -130,4 +143,3 @@ const ConfiguracaoForm = ({
 };
 
 export default ConfiguracaoForm;
-`}
